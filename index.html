@@ -1,0 +1,311 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap-reboot.min.css" integrity="sha256-ppZyQtAjuonHV1Z+DwQnDTk4/GUpdegGm1Jz7qYuM5c=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard-dynamic-subset.css">
+    <title>3*3*3</title>
+    <style>
+      @font-face {
+        font-family: "Pictogram";
+        src: url("https://cdn.jsdelivr.net/gh/333pictogram/333pictogram@latest/dist/PicVariVF.woff2") format("woff2");
+      }
+      @font-face {
+        font-family: "PictogramMono";
+        src: url("https://cdn.jsdelivr.net/gh/333pictogram/333pictogram@latest/dist/PicVariMonoVF.woff2") format("woff2");
+      }
+      @keyframes intro {
+        0% {
+          font-variation-settings: 'wght' 500, 'RTIO' 900, 'RDUS' 200;
+        }
+        12.5% {
+          font-variation-settings: 'wght' 200, 'RTIO' 300, 'RDUS' 900;
+        }
+        25% {
+          font-variation-settings: 'wght' 900, 'RTIO' 700, 'RDUS' 100;
+        }
+        37.5% {
+          font-variation-settings: 'wght' 100, 'RTIO' 100, 'RDUS' 500;
+        }
+        50% {
+          font-variation-settings: 'wght' 600, 'RTIO' 800, 'RDUS' 900;
+        }
+        62.5% {
+          font-variation-settings: 'wght' 900, 'RTIO' 100, 'RDUS' 100;
+        }
+        75% {
+          font-variation-settings: 'wght' 300, 'RTIO' 500, 'RDUS' 600;
+        }
+        87.5% {
+          font-variation-settings: 'wght' 800, 'RTIO' 150, 'RDUS' 900;
+        }
+        100% {
+          font-variation-settings: 'wght' 500, 'RTIO' 900, 'RDUS' 200;
+        }
+      }
+      @keyframes weight-left {
+        0%, 100% {
+          font-variation-settings: 'wght' 900, 'RTIO' 200, 'RDUS' 150;
+        }
+        50% {
+          font-variation-settings: 'wght' 100, 'RTIO' 200, 'RDUS' 150;
+        }
+      }
+      @keyframes weight-right {
+        0%, 100% {
+          font-variation-settings: 'wght' 100, 'RTIO' 200, 'RDUS' 150;
+        }
+        50% {
+          font-variation-settings: 'wght' 900, 'RTIO' 200, 'RDUS' 150;
+        }
+      }
+      @keyframes ratio-left {
+        0%, 100% {
+          font-variation-settings: 'wght' 300, 'RTIO' 100, 'RDUS' 900;
+        }
+        30% {
+          font-variation-settings: 'wght' 300, 'RTIO' 900, 'RDUS' 900;
+        }
+        50% {
+          font-variation-settings: 'wght' 300, 'RTIO' 900, 'RDUS' 900;
+        }
+      }
+      @keyframes ratio-right {
+        0%, 100% {
+          font-variation-settings: 'wght' 300, 'RTIO' 100, 'RDUS' 900;
+        }
+        20% {
+          font-variation-settings: 'wght' 300, 'RTIO' 100, 'RDUS' 900;
+        }
+        50% {
+          font-variation-settings: 'wght' 300, 'RTIO' 900, 'RDUS' 900;
+        }
+      }
+      @keyframes radius-left {
+        0%, 100% {
+          font-variation-settings: 'wght' 500, 'RTIO' 450, 'RDUS' 100;
+        }
+        50% {
+          font-variation-settings: 'wght' 500, 'RTIO' 450, 'RDUS' 900;
+        }
+      }
+      @keyframes radius-right {
+        0%, 100% {
+          font-variation-settings: 'wght' 500, 'RTIO' 450, 'RDUS' 500;
+        }
+        25% {
+          font-variation-settings: 'wght' 500, 'RTIO' 450, 'RDUS' 900;
+        }
+        75% {
+          font-variation-settings: 'wght' 500, 'RTIO' 450, 'RDUS' 100;
+        }
+      }
+      :root {
+        --grid-gap: 18px;
+        --color-weight: #f25a39;
+        --color-ratio: #3461ff;
+        --color-radius: #62df85;
+      }
+      .intro-row {
+        position: relative;
+        height: 180px;
+        will-change: transform;
+      }
+      .intro-glyph {
+        position: absolute;
+        top: 0;
+        font-family: PictogramMono;
+        font-size: 180px;
+        line-height: 1;
+        color: #fff;
+        animation: intro 16s ease-in-out;
+        animation-iteration-count: infinite;
+        animation-fill-mode: backwards;
+        will-change: font-variation-settings;
+      }
+      #downloadButton {
+        cursor: pointer;
+      }
+      #downloadButton:hover {
+        opacity: 0.5;
+      }
+    </style>
+  </head>
+  <body style="font-family: Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif; font-feature-settings: 'case' on; word-break: keep-all; letter-spacing: -0.01em; line-height: 1.7;">
+    <div style="position: fixed; z-index: 1000; top: 0; left: 0; width: 100%; height: 80px;">
+      <div style="display: flex; justify-content: flex-end; align-items: center; max-width: 1280px; height: 100%; margin-right: auto; margin-left: auto; padding-right: 60px; padding-left: 60px;">
+        <a style="color: unset; text-decoration: unset;" href="javascript: alert('배포 준비 중입니다!');">
+          <img id="downloadButton" height="33" src="./assets/download.svg">
+        </a>
+      </div>
+    </div>
+    <div style="display: flex; gap: var(--grid-gap); max-width: 1280px; margin-right: auto; margin-left: auto; padding-right: 60px; padding-left: 60px;">
+      <aside style="flex-basis: 0; flex-grow: 1;">
+        <div style="display: flex; flex-direction: column; align-items: center;">
+          <div style="height: 792px; margin-bottom: -41px;">
+            <img height="41" src="./assets/floors/6.svg" style="position: sticky; z-index: 990; top: 24px;">
+          </div>
+          <div style="height: 568px; margin-bottom: -41px;">
+            <img height="41" src="./assets/floors/5.svg" style="position: sticky; z-index: 990; top: 24px;">
+          </div>
+          <div style="height: 2119px; margin-bottom: -41px;">
+            <img height="41" src="./assets/floors/4.svg" style="position: sticky; z-index: 990; top: 24px;">
+          </div>
+          <div style="height: 1013px; margin-bottom: -41px;">
+            <img height="41" src="./assets/floors/3.svg" style="position: sticky; z-index: 990; top: 24px;">
+          </div>
+          <!--
+          <div style="height: 200px; margin-bottom: -41px;">
+            <img height="41" src="./assets/floors/2.svg" style="position: sticky; top: 24px;">
+          </div>
+          -->
+          <div style="height: 41px; margin-bottom: -41px;">
+            <img height="41" src="./assets/floors/1.svg" style="position: sticky; z-index: 990; top: 24px;">
+          </div>
+        </div>
+      </aside>
+      <main style="flex-basis: 0; flex-grow: 12;">
+        <div style="display: flex; justify-content: space-between; height: 80px;">
+          <div style="display: flex; align-items: center;">
+            <a style="color: unset; text-decoration: unset;" href="">
+              <img height="39" src="./assets/logo.svg">
+            </a>
+          </div>
+        </div>
+        <div style="position: absolute; top: 80px; left: 0; width: 100%; padding-top: 44px; padding-bottom: 44px; background-color: #1c1c1c;">
+          <div style="padding-top: 40px; padding-bottom: 40px;">
+            <div class="intro-row" data-direction="1"></div>
+          </div>
+          <div style="padding-top: 40px; padding-bottom: 40px; transform: scaleX(-1);">
+            <div class="intro-row" data-direction="-1"></div>
+          </div>
+        </div>
+        <div style="margin-top: 576px; display: flex; gap: var(--grid-gap); padding-top: 90px; padding-bottom: 90px;">
+          <img width="100%" src="./assets/introduction.svg">
+        </div>
+        <div style="padding-top: 45px; padding-bottom: 45px;">
+          <div style="border-top: 2px solid #000;">
+            <img style="height: 74px;" src="./assets/features.svg">
+          </div>
+          <div style="display: flex; gap: var(--grid-gap); padding-top: 90px; padding-bottom: 90px;">
+            <div style="flex-basis: 0; flex-grow: 6;">
+              <h2 style="font-weight: 700; font-size: 24px; margin-bottom: 36px;">아이덴티티의 표현이 자유로운 3개의 Axes</h2>
+              <p style="font-weight: 400; font-size: 24px; margin-bottom: 0;">삼*삼*삼은 가변 가능한 3개의 축을 가지고 있습니다. 굵기(Weight), 비율(Ratio), 곡률(Radius)을 원하는 대로 조정해 다양하게 활용해보세요.</p>
+            </div>
+            <div style="flex-basis: 0; flex-grow: 6;">
+              <h2 style="font-weight: 700; font-size: 24px; margin-bottom: 36px;">오프라인 공간에 최적화된 27개의 글리프</h2>
+              <p style="font-weight: 400; font-size: 24px; margin-bottom: 12px;">3*3*3은 오프라인 공간에서 사용 빈도수가 높은 27개의 픽토그램으로 구성되어 있습니다.</p>
+              <p style="font-weight: 400; font-size: 18px; margin-bottom: 0;">*안전을 위해 위험과 직결된 정보를 가진 픽토그램은 제외되었습니다.</p>
+            </div>
+          </div>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 90px;">
+          <div style="display: flex; gap: var(--grid-gap);">
+            <div style="flex-basis: 0; flex-grow: 6;">
+              <div>
+                <img style="width: 100%;" src="./assets/weight.svg">
+              </div>
+              <div style="padding-top: 45px;">
+                <p style="font-weight: 400; font-size: 24px; margin-bottom: 0;">적재적소에 배치되기 위해 글꼴에 Weight Family가 있듯이, 공간에 어울리는 픽토그램을 구상하는 과정에서 굵기는 가장 먼저 고려되어야 하는 요소 중 하나입니다. 가느다란 표준 픽토그램 1/2 굵기부터 조형 사이공간이 거의 사라지는 최대 굵기까지 모두 만나보세요.</p>
+              </div>
+            </div>
+            <div style="flex-basis: 0; flex-grow: 6;">
+              <div style="height: 100%; display: flex; align-items: center; padding-top: 36px;">
+                <div style="flex-grow: 1; color: var(--color-weight); text-align: center; font-family: Pictogram; font-size: 256px; line-height: 1;">
+                  <span style="animation: weight-left 1.4s cubic-bezier(1, 0.02, 0.73, 0.62) infinite; will-change: font-variation-settings; margin-right: 12px;">g</span><span style="animation: weight-right 1.4s cubic-bezier(1, 0.02, 0.73, 0.62) infinite; will-change: font-variation-settings;">e</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div style="display: flex; gap: var(--grid-gap);">
+            <div style="flex-basis: 0; flex-grow: 6;">
+              <div style="height: 100%; display: flex; align-items: center; padding-top: 10px; padding-left: 15px;">
+                <div style="flex-grow: 1; color: var(--color-ratio); text-align: center; font-family: PictogramMono; font-size: 256px; line-height: 1;">
+                  <span style="animation: ratio-left 1.5s cubic-bezier(0.94, 0.01, 0.9, 0.96) infinite; will-change: font-variation-settings; position: relative; top: -58px; right: -15px;">d</span><span style="animation: ratio-right 1.5s cubic-bezier(0.94, 0.01, 0.9, 0.96) infinite; will-change: font-variation-settings; position: relative; top: 58px; left: -15px;">b</span>
+                </div>
+              </div>
+            </div>
+            <div style="flex-basis: 0; flex-grow: 1;"></div>
+            <div style="flex-basis: 0; flex-grow: 5;">
+              <div>
+                <img style="width: 100%;" src="./assets/ratio.svg">
+              </div>
+              <div style="padding-top: 45px;">
+                <p style="font-weight: 400; font-size: 24px; margin-bottom: 0;">여러 조형 요소로 구성되어있는 픽토그램은 요소 간의 상대적인 비율에 따라서 무한한 시각적 가능성을 가지게 됩니다. 3등신부터 10등신까지 표현 가능한 인물 픽토그램과 의미를 유지하는 선에서 자유무쌍한 비율을 보여주는 사물 픽토그램을 만나보세요.</p>
+              </div>
+            </div>
+          </div>
+          <div style="display: flex; gap: var(--grid-gap);">
+            <div style="flex-basis: 0; flex-grow: 6;">
+              <div>
+                <img style="width: 100%;" src="./assets/radius.svg">
+              </div>
+              <div style="padding-top: 45px; width: 74%; position: relative; top: -34%; left: 26%;">
+                <p style="font-weight: 400; font-size: 24px; margin-bottom: 0;">우리가 추구하는 공간은 둥글고 원만할 수도, 각지고 개성적일 수도 있습니다. 곡률로 다양한 공간을 섬세하게 표현해보세요. 말단의 작은 둥글기부터 구조 전체에 적용되는 둥글기까지 조정할 수 있습니다.</p>
+              </div>
+            </div>
+            <div style="flex-basis: 0; flex-grow: 6;">
+              <div style="height: 100%; display: flex; align-items: center; padding-bottom: 72px;">
+                <div style="flex-grow: 1; color: var(--color-radius); text-align: center; font-family: PictogramMono; font-size: 256px; line-height: 1;">
+                  <span style="animation: radius-left 2s ease-in-out infinite; will-change: font-variation-settings; margin-right: 2px;">f</span><span style="animation: radius-right 2s ease-in-out infinite; will-change: font-variation-settings;">h</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div style="padding-top: 45px; padding-bottom: 45px;">
+          <div style="border-top: 2px solid #000;">
+            <img style="height: 75px;" src="./assets/glyphs.svg">
+          </div>
+          <div style="padding-top: 90px; padding-bottom: 90px;">
+            <img width="100%" src="./assets/glyphs-matrix.svg">
+          </div>
+        </div>
+        <div style="padding-top: 90px; padding-bottom: 90px;">
+          <img width="100%" src="./assets/credits.svg">
+        </div>
+      </main>
+    </div>
+    <script>
+      document.querySelectorAll('.intro-row').forEach(rowEl => {
+        'abcdefghijklmnopqrstuvwxyz,'.split('').forEach((glyph, i) => {
+          const glyphEl = document.createElement('span')
+          glyphEl.classList.add('intro-glyph')
+          glyphEl.style.left = `${i * 200}px`
+          glyphEl.style.animationDelay = `${i * 320}ms`
+          glyphEl.innerText = glyph
+          rowEl.insertAdjacentElement('beforeend', glyphEl)
+        })
+      })
+
+      setInterval(() => {
+        document.querySelectorAll('.intro-row').forEach(rowEl => {
+          if (rowEl.style.transform) {
+            rowEl.style.transform = `translateX(${+rowEl.style.transform.match(/\((.+)px\)/)[1] - 3}px)`
+          }
+          else {
+            rowEl.style.transform = 'translateX(-3px)'
+          }
+        })
+      }, 25)
+
+      setInterval(() => {
+        document.querySelectorAll('.intro-glyph').forEach(glyphEl => {
+          const rect = glyphEl.getBoundingClientRect()
+          const rowEl = glyphEl.closest('.intro-row')
+          if (+rowEl.dataset.direction > 0) {
+            if (rect.right < 0) {
+              glyphEl.style.left = `${parseInt(glyphEl.style.left) + 27 * 200}px`
+            }
+          }
+          else {
+            if (rect.left > window.innerWidth) {
+              glyphEl.style.left = `${parseInt(glyphEl.style.left) + 27 * 200}px`
+            }
+          }
+        })
+      }, 1000)
+    </script>
+  </body>
+</html>
