@@ -283,17 +283,6 @@
       })
 
       setInterval(() => {
-        document.querySelectorAll('.intro-row').forEach(rowEl => {
-          if (rowEl.style.transform) {
-            rowEl.style.transform = `translateX(${+rowEl.style.transform.match(/\((.+)px\)/)[1] - 3}px)`
-          }
-          else {
-            rowEl.style.transform = 'translateX(-3px)'
-          }
-        })
-      }, 25)
-
-      setInterval(() => {
         document.querySelectorAll('.intro-glyph').forEach(glyphEl => {
           const rect = glyphEl.getBoundingClientRect()
           const rowEl = glyphEl.closest('.intro-row')
