@@ -280,16 +280,31 @@
       </main>
     </div>
     <script>
-      document.querySelectorAll('.intro-row').forEach(rowEl => {
-        'abcdefghijklmnopqrstuvwxyz,'.split('').forEach((glyph, i) => {
+      const glyphList = 'abcdefghijklmnopqrstuvwxyz,'.split('')
+      const introRowList = document.querySelectorAll('.intro-row')
+      introRowList.forEach((rowEl, rowIndex) => {
+        const offset = Math.floor((glyphList.length / introRowList.length) * rowIndex)
+        for (let i = 0; i < glyphList.length; ++i) {
+          const glyph = glyphList[(offset + i) % glyphList.length]
           const glyphEl = document.createElement('span')
           glyphEl.classList.add('intro-glyph')
           glyphEl.style.left = `${i * 200}px`
           glyphEl.style.animationDelay = `${i * 400}ms`
           glyphEl.innerText = glyph
           rowEl.insertAdjacentElement('beforeend', glyphEl)
-        })
+        }
       })
+      /*
+      setInterval(() => {
+        document.querySelectorAll('.intro-row').forEach(rowEl => {
+          if (rowEl.style.transform) {
+            rowEl.style.transform = `translateX(${+rowEl.style.transform.match(/\((.+)px\)/)[1] - 3}px)`
+          }
+          else {
+            rowEl.style.transform = 'translateX(-3px)'
+          }
+        })
+      }, 25)
 
       setInterval(() => {
         document.querySelectorAll('.intro-glyph').forEach(glyphEl => {
@@ -307,6 +322,7 @@
           }
         })
       }, 1000)
+      */
     </script>
   </body>
 </html>
