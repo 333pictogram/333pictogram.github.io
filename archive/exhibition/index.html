@@ -1,0 +1,652 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap-reboot.min.css" integrity="sha256-ppZyQtAjuonHV1Z+DwQnDTk4/GUpdegGm1Jz7qYuM5c=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
+    <title>3*3*3</title>
+    <style>
+      @font-face {
+        font-family: "Pictogram";
+        src: url("https://cdn.jsdelivr.net/gh/333pictogram/333pictogram@latest/dist/default/333Pictogram.woff2") format("woff2");
+      }
+      @font-face {
+        font-family: "PictogramMono";
+        src: url("https://cdn.jsdelivr.net/gh/333pictogram/333pictogram@latest/dist/mono/333PictogramMono.woff2") format("woff2");
+      }
+      :root {
+        --intro-animation-duration: 400ms;
+        --intro-animation-timing-function: ease;
+        --glyph-animation-duration: 320ms;
+        --glyph-animation-timing-function: ease-in-out;
+        --color-weight: #f25a39;
+        --color-ratio: #3461ff;
+        --color-radius: #62df85;
+        --color-bg: #fff;
+        --color-shade: #f5f5f5;
+        --color-frame: #f0f0f0;
+        --color-glyph: #1c1c1c;
+      }
+      body.inactive,
+      .inverted,
+      .cta-button:not(:hover) {
+        --color-bg: #1c1c1c;
+        --color-shade: #303030;
+        --color-frame: #363636;
+        --color-glyph: #f5f5f5;
+      }
+      .cta-button {
+        --color-border: var(--color-bg);
+      }
+      .cta-button:hover {
+        --color-border: var(--color-glyph);
+      }
+      .glyph-box.selected {
+        --color-frame: #00dfaa;
+        --color-glyph: #fff;
+      }
+    </style>
+    
+<style>
+  html,
+  body {
+    position: relative;
+    overflow-y: hidden;
+  }
+  body {
+    height: 100vh;
+  }
+  body > header,
+  body > aside,
+  body > main {
+    transition: transform var(--intro-animation-duration) var(--intro-animation-timing-function);
+    will-change: transform;
+  }
+  body:not(.intro-finished) > header {
+    transform: translateY(100vh);
+  }
+  body.intro-finished > aside,
+  body.intro-finished > main {
+    transform: translateY(-100vh);
+  }
+</style>
+
+  </head>
+  <body style="font-family: Pretendard, sans-serif; word-break: keep-all; line-height: 1; background-color: var(--color-bg); transition: background-color var(--intro-animation-duration) var(--intro-animation-timing-function); will-change: background-color;">
+    
+<header style="position: fixed; z-index: 1000; top: 0; left: 0; width: 100%; height: 130px; background-color: var(--color-bg);">
+  <div style="height: 100%; padding: 0 30px; display: flex; align-items: center; gap: 20px;">
+    <div>
+      <a href="javascript: window.location = window.location.pathname">
+        <img src="/static/icon-back.svg">
+      </a>
+    </div>
+    <div>
+      <span style="font-weight: 400; font-size: 40px; letter-spacing: -0.01em; color: var(--color-glyph);">조절하고 싶은 픽토그램을 선택하세요.</span>
+    </div>
+  </div>
+</header>
+<aside id="intro" style="position: relative; z-index: 1050; overflow-y: hidden; height: 100%;">
+  <img width="100%" height="100%" src="/static/intro.svg">
+</aside>
+<main style="position: relative; overflow-y: scroll; height: 100%; padding-top: 130px;">
+  <div style="padding: 0 50px 50px;">
+    
+    <ul style="list-style: none; margin-bottom: 0; padding-left: 0; display: grid; grid-template-columns: repeat(4, 1fr); column-gap: 2.512562814070352vw; row-gap: 2.512562814070352vw;">
+  
+  <li>
+    <a href="./customize?glyph=a">
+      <div class="glyph-box" style="position: relative; padding-bottom: 100%;" data-glyph="a">
+        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; display: flex; justify-content: center; align-items: center;">
+          <span class="glyph" style="font-family: PictogramMono; font-size: 12.0vw; font-variation-settings: 'wght' 450, 'RTIO' 550, 'RDUS' 550; color: var(--color-glyph); transition: color var(--intro-animation-duration) var(--intro-animation-timing-function), font-variation-settings 400ms ease; will-change: color, font-variation-settings;">a</span>
+        </div>
+        
+        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center;">
+          <svg width="100%" viewBox="0 0 250 250">
+            
+            <rect fill="var(--color-frame)" style="transition: fill var(--intro-animation-duration) var(--intro-animation-timing-function); will-change: fill;" width="250" height="250" rx="125"/>
+            
+          </svg>
+        </div>
+        
+      </div>
+    </a>
+  </li>
+  
+  <li>
+    <a href="./customize?glyph=b">
+      <div class="glyph-box" style="position: relative; padding-bottom: 100%;" data-glyph="b">
+        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; display: flex; justify-content: center; align-items: center;">
+          <span class="glyph" style="font-family: PictogramMono; font-size: 12.0vw; font-variation-settings: 'wght' 450, 'RTIO' 550, 'RDUS' 550; color: var(--color-glyph); transition: color var(--intro-animation-duration) var(--intro-animation-timing-function), font-variation-settings 400ms ease; will-change: color, font-variation-settings;">b</span>
+        </div>
+        
+        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center;">
+          <svg width="100%" viewBox="0 0 250 250">
+            
+            <path fill="var(--color-frame)" style="transition: fill var(--intro-animation-duration) var(--intro-animation-timing-function); will-change: fill;" d="M182.635 5.85786C178.884 2.10714 173.797 0 168.492 0H81.5076C76.2032 0 71.1162 2.10713 67.3654 5.85786L5.85786 67.3654C2.10714 71.1162 0 76.2032 0 81.5076V125V176.777V230C0 241.046 8.9543 250 20 250H73.2233H176.777H230C241.046 250 250 241.046 250 230V176.777V125V81.5076C250 76.2032 247.893 71.1162 244.142 67.3654L182.635 5.85786Z"/>
+            
+          </svg>
+        </div>
+        
+      </div>
+    </a>
+  </li>
+  
+  <li>
+    <a href="./customize?glyph=c">
+      <div class="glyph-box" style="position: relative; padding-bottom: 100%;" data-glyph="c">
+        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; display: flex; justify-content: center; align-items: center;">
+          <span class="glyph" style="font-family: PictogramMono; font-size: 12.0vw; font-variation-settings: 'wght' 450, 'RTIO' 550, 'RDUS' 550; color: var(--color-glyph); transition: color var(--intro-animation-duration) var(--intro-animation-timing-function), font-variation-settings 400ms ease; will-change: color, font-variation-settings;">c</span>
+        </div>
+        
+        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center;">
+          <svg width="100%" viewBox="0 0 250 250">
+            
+            <path fill="var(--color-frame)" style="transition: fill var(--intro-animation-duration) var(--intro-animation-timing-function); will-change: fill;" d="M67.3654 5.85786C71.1162 2.10713 76.2032 3.10766e-08 81.5076 8.63934e-08L168.492 9.93525e-07C173.797 1.04884e-06 178.884 2.10714 182.635 5.85787L244.142 67.3654C247.893 71.1162 250 76.2032 250 81.5076V168.492C250 173.797 247.893 178.884 244.142 182.635L182.635 244.142C178.884 247.893 173.797 250 168.492 250H81.5076C76.2032 250 71.1162 247.893 67.3654 244.142L5.85786 182.635C2.10713 178.884 3.10767e-08 173.797 8.63934e-08 168.492L9.93525e-07 81.5076C1.04884e-06 76.2032 2.10714 71.1162 5.85786 67.3654L67.3654 5.85786Z"/>
+            
+          </svg>
+        </div>
+        
+      </div>
+    </a>
+  </li>
+  
+  <li>
+    <a href="./customize?glyph=d">
+      <div class="glyph-box" style="position: relative; padding-bottom: 100%;" data-glyph="d">
+        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; display: flex; justify-content: center; align-items: center;">
+          <span class="glyph" style="font-family: PictogramMono; font-size: 12.0vw; font-variation-settings: 'wght' 450, 'RTIO' 550, 'RDUS' 550; color: var(--color-glyph); transition: color var(--intro-animation-duration) var(--intro-animation-timing-function), font-variation-settings 400ms ease; will-change: color, font-variation-settings;">d</span>
+        </div>
+        
+        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center;">
+          <svg width="100%" viewBox="0 0 250 250">
+            
+            <rect fill="var(--color-frame)" style="transition: fill var(--intro-animation-duration) var(--intro-animation-timing-function); will-change: fill;" width="250" height="250" rx="20"/>
+            
+          </svg>
+        </div>
+        
+      </div>
+    </a>
+  </li>
+  
+  <li>
+    <a href="./customize?glyph=e">
+      <div class="glyph-box" style="position: relative; padding-bottom: 100%;" data-glyph="e">
+        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; display: flex; justify-content: center; align-items: center;">
+          <span class="glyph" style="font-family: PictogramMono; font-size: 12.0vw; font-variation-settings: 'wght' 450, 'RTIO' 550, 'RDUS' 550; color: var(--color-glyph); transition: color var(--intro-animation-duration) var(--intro-animation-timing-function), font-variation-settings 400ms ease; will-change: color, font-variation-settings;">e</span>
+        </div>
+        
+        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center;">
+          <svg width="100%" viewBox="0 0 250 250">
+            
+            <rect fill="var(--color-frame)" style="transition: fill var(--intro-animation-duration) var(--intro-animation-timing-function); will-change: fill;" width="250" height="250" rx="20"/>
+            
+          </svg>
+        </div>
+        
+      </div>
+    </a>
+  </li>
+  
+  <li>
+    <a href="./customize?glyph=f">
+      <div class="glyph-box" style="position: relative; padding-bottom: 100%;" data-glyph="f">
+        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; display: flex; justify-content: center; align-items: center;">
+          <span class="glyph" style="font-family: PictogramMono; font-size: 12.0vw; font-variation-settings: 'wght' 450, 'RTIO' 550, 'RDUS' 550; color: var(--color-glyph); transition: color var(--intro-animation-duration) var(--intro-animation-timing-function), font-variation-settings 400ms ease; will-change: color, font-variation-settings;">f</span>
+        </div>
+        
+        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center;">
+          <svg width="100%" viewBox="0 0 250 250">
+            
+            <path fill="var(--color-frame)" style="transition: fill var(--intro-animation-duration) var(--intro-animation-timing-function); will-change: fill;" d="M67.3654 5.85786C71.1162 2.10713 76.2032 3.10766e-08 81.5076 8.63934e-08L168.492 9.93525e-07C173.797 1.04884e-06 178.884 2.10714 182.635 5.85787L244.142 67.3654C247.893 71.1162 250 76.2032 250 81.5076V168.492C250 173.797 247.893 178.884 244.142 182.635L182.635 244.142C178.884 247.893 173.797 250 168.492 250H81.5076C76.2032 250 71.1162 247.893 67.3654 244.142L5.85786 182.635C2.10713 178.884 3.10767e-08 173.797 8.63934e-08 168.492L9.93525e-07 81.5076C1.04884e-06 76.2032 2.10714 71.1162 5.85786 67.3654L67.3654 5.85786Z"/>
+            
+          </svg>
+        </div>
+        
+      </div>
+    </a>
+  </li>
+  
+  <li>
+    <a href="./customize?glyph=g">
+      <div class="glyph-box" style="position: relative; padding-bottom: 100%;" data-glyph="g">
+        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; display: flex; justify-content: center; align-items: center;">
+          <span class="glyph" style="font-family: PictogramMono; font-size: 12.0vw; font-variation-settings: 'wght' 450, 'RTIO' 550, 'RDUS' 550; color: var(--color-glyph); transition: color var(--intro-animation-duration) var(--intro-animation-timing-function), font-variation-settings 400ms ease; will-change: color, font-variation-settings;">g</span>
+        </div>
+        
+        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center;">
+          <svg width="100%" viewBox="0 0 250 250">
+            
+            <rect fill="var(--color-frame)" style="transition: fill var(--intro-animation-duration) var(--intro-animation-timing-function); will-change: fill;" width="250" height="250" rx="125"/>
+            
+          </svg>
+        </div>
+        
+      </div>
+    </a>
+  </li>
+  
+  <li>
+    <a href="./customize?glyph=h">
+      <div class="glyph-box" style="position: relative; padding-bottom: 100%;" data-glyph="h">
+        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; display: flex; justify-content: center; align-items: center;">
+          <span class="glyph" style="font-family: PictogramMono; font-size: 12.0vw; font-variation-settings: 'wght' 450, 'RTIO' 550, 'RDUS' 550; color: var(--color-glyph); transition: color var(--intro-animation-duration) var(--intro-animation-timing-function), font-variation-settings 400ms ease; will-change: color, font-variation-settings;">h</span>
+        </div>
+        
+        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center;">
+          <svg width="100%" viewBox="0 0 250 250">
+            
+            <path fill="var(--color-frame)" style="transition: fill var(--intro-animation-duration) var(--intro-animation-timing-function); will-change: fill;" d="M182.635 5.85786C178.884 2.10714 173.797 0 168.492 0H81.5076C76.2032 0 71.1162 2.10713 67.3654 5.85786L5.85786 67.3654C2.10714 71.1162 0 76.2032 0 81.5076V125V176.777V230C0 241.046 8.9543 250 20 250H73.2233H176.777H230C241.046 250 250 241.046 250 230V176.777V125V81.5076C250 76.2032 247.893 71.1162 244.142 67.3654L182.635 5.85786Z"/>
+            
+          </svg>
+        </div>
+        
+      </div>
+    </a>
+  </li>
+  
+  <li>
+    <a href="./customize?glyph=i">
+      <div class="glyph-box" style="position: relative; padding-bottom: 100%;" data-glyph="i">
+        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; display: flex; justify-content: center; align-items: center;">
+          <span class="glyph" style="font-family: PictogramMono; font-size: 12.0vw; font-variation-settings: 'wght' 450, 'RTIO' 550, 'RDUS' 550; color: var(--color-glyph); transition: color var(--intro-animation-duration) var(--intro-animation-timing-function), font-variation-settings 400ms ease; will-change: color, font-variation-settings;">i</span>
+        </div>
+        
+        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center;">
+          <svg width="100%" viewBox="0 0 250 250">
+            
+            <path fill="var(--color-frame)" style="transition: fill var(--intro-animation-duration) var(--intro-animation-timing-function); will-change: fill;" d="M182.635 5.85786C178.884 2.10714 173.797 0 168.492 0H81.5076C76.2032 0 71.1162 2.10713 67.3654 5.85786L5.85786 67.3654C2.10714 71.1162 0 76.2032 0 81.5076V125V176.777V230C0 241.046 8.9543 250 20 250H73.2233H176.777H230C241.046 250 250 241.046 250 230V176.777V125V81.5076C250 76.2032 247.893 71.1162 244.142 67.3654L182.635 5.85786Z"/>
+            
+          </svg>
+        </div>
+        
+      </div>
+    </a>
+  </li>
+  
+  <li>
+    <a href="./customize?glyph=j">
+      <div class="glyph-box" style="position: relative; padding-bottom: 100%;" data-glyph="j">
+        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; display: flex; justify-content: center; align-items: center;">
+          <span class="glyph" style="font-family: PictogramMono; font-size: 12.0vw; font-variation-settings: 'wght' 450, 'RTIO' 550, 'RDUS' 550; color: var(--color-glyph); transition: color var(--intro-animation-duration) var(--intro-animation-timing-function), font-variation-settings 400ms ease; will-change: color, font-variation-settings;">j</span>
+        </div>
+        
+        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center;">
+          <svg width="100%" viewBox="0 0 250 250">
+            
+            <rect fill="var(--color-frame)" style="transition: fill var(--intro-animation-duration) var(--intro-animation-timing-function); will-change: fill;" width="250" height="250" rx="125"/>
+            
+          </svg>
+        </div>
+        
+      </div>
+    </a>
+  </li>
+  
+  <li>
+    <a href="./customize?glyph=k">
+      <div class="glyph-box" style="position: relative; padding-bottom: 100%;" data-glyph="k">
+        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; display: flex; justify-content: center; align-items: center;">
+          <span class="glyph" style="font-family: PictogramMono; font-size: 12.0vw; font-variation-settings: 'wght' 450, 'RTIO' 550, 'RDUS' 550; color: var(--color-glyph); transition: color var(--intro-animation-duration) var(--intro-animation-timing-function), font-variation-settings 400ms ease; will-change: color, font-variation-settings;">k</span>
+        </div>
+        
+        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center;">
+          <svg width="100%" viewBox="0 0 250 250">
+            
+            <rect fill="var(--color-frame)" style="transition: fill var(--intro-animation-duration) var(--intro-animation-timing-function); will-change: fill;" width="250" height="250" rx="20"/>
+            
+          </svg>
+        </div>
+        
+      </div>
+    </a>
+  </li>
+  
+  <li>
+    <a href="./customize?glyph=l">
+      <div class="glyph-box" style="position: relative; padding-bottom: 100%;" data-glyph="l">
+        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; display: flex; justify-content: center; align-items: center;">
+          <span class="glyph" style="font-family: PictogramMono; font-size: 12.0vw; font-variation-settings: 'wght' 450, 'RTIO' 550, 'RDUS' 550; color: var(--color-glyph); transition: color var(--intro-animation-duration) var(--intro-animation-timing-function), font-variation-settings 400ms ease; will-change: color, font-variation-settings;">l</span>
+        </div>
+        
+        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center;">
+          <svg width="100%" viewBox="0 0 250 250">
+            
+            <path fill="var(--color-frame)" style="transition: fill var(--intro-animation-duration) var(--intro-animation-timing-function); will-change: fill;" d="M67.3654 5.85786C71.1162 2.10713 76.2032 3.10766e-08 81.5076 8.63934e-08L168.492 9.93525e-07C173.797 1.04884e-06 178.884 2.10714 182.635 5.85787L244.142 67.3654C247.893 71.1162 250 76.2032 250 81.5076V168.492C250 173.797 247.893 178.884 244.142 182.635L182.635 244.142C178.884 247.893 173.797 250 168.492 250H81.5076C76.2032 250 71.1162 247.893 67.3654 244.142L5.85786 182.635C2.10713 178.884 3.10767e-08 173.797 8.63934e-08 168.492L9.93525e-07 81.5076C1.04884e-06 76.2032 2.10714 71.1162 5.85786 67.3654L67.3654 5.85786Z"/>
+            
+          </svg>
+        </div>
+        
+      </div>
+    </a>
+  </li>
+  
+  <li>
+    <a href="./customize?glyph=m">
+      <div class="glyph-box" style="position: relative; padding-bottom: 100%;" data-glyph="m">
+        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; display: flex; justify-content: center; align-items: center;">
+          <span class="glyph" style="font-family: PictogramMono; font-size: 12.0vw; font-variation-settings: 'wght' 450, 'RTIO' 550, 'RDUS' 550; color: var(--color-glyph); transition: color var(--intro-animation-duration) var(--intro-animation-timing-function), font-variation-settings 400ms ease; will-change: color, font-variation-settings;">m</span>
+        </div>
+        
+        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center;">
+          <svg width="100%" viewBox="0 0 250 250">
+            
+            <path fill="var(--color-frame)" style="transition: fill var(--intro-animation-duration) var(--intro-animation-timing-function); will-change: fill;" d="M67.3654 5.85786C71.1162 2.10713 76.2032 3.10766e-08 81.5076 8.63934e-08L168.492 9.93525e-07C173.797 1.04884e-06 178.884 2.10714 182.635 5.85787L244.142 67.3654C247.893 71.1162 250 76.2032 250 81.5076V168.492C250 173.797 247.893 178.884 244.142 182.635L182.635 244.142C178.884 247.893 173.797 250 168.492 250H81.5076C76.2032 250 71.1162 247.893 67.3654 244.142L5.85786 182.635C2.10713 178.884 3.10767e-08 173.797 8.63934e-08 168.492L9.93525e-07 81.5076C1.04884e-06 76.2032 2.10714 71.1162 5.85786 67.3654L67.3654 5.85786Z"/>
+            
+          </svg>
+        </div>
+        
+      </div>
+    </a>
+  </li>
+  
+  <li>
+    <a href="./customize?glyph=n">
+      <div class="glyph-box" style="position: relative; padding-bottom: 100%;" data-glyph="n">
+        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; display: flex; justify-content: center; align-items: center;">
+          <span class="glyph" style="font-family: PictogramMono; font-size: 12.0vw; font-variation-settings: 'wght' 450, 'RTIO' 550, 'RDUS' 550; color: var(--color-glyph); transition: color var(--intro-animation-duration) var(--intro-animation-timing-function), font-variation-settings 400ms ease; will-change: color, font-variation-settings;">n</span>
+        </div>
+        
+        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center;">
+          <svg width="100%" viewBox="0 0 250 250">
+            
+            <rect fill="var(--color-frame)" style="transition: fill var(--intro-animation-duration) var(--intro-animation-timing-function); will-change: fill;" width="250" height="250" rx="20"/>
+            
+          </svg>
+        </div>
+        
+      </div>
+    </a>
+  </li>
+  
+  <li>
+    <a href="./customize?glyph=o">
+      <div class="glyph-box" style="position: relative; padding-bottom: 100%;" data-glyph="o">
+        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; display: flex; justify-content: center; align-items: center;">
+          <span class="glyph" style="font-family: PictogramMono; font-size: 12.0vw; font-variation-settings: 'wght' 450, 'RTIO' 550, 'RDUS' 550; color: var(--color-glyph); transition: color var(--intro-animation-duration) var(--intro-animation-timing-function), font-variation-settings 400ms ease; will-change: color, font-variation-settings;">o</span>
+        </div>
+        
+        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center;">
+          <svg width="100%" viewBox="0 0 250 250">
+            
+            <path fill="var(--color-frame)" style="transition: fill var(--intro-animation-duration) var(--intro-animation-timing-function); will-change: fill;" d="M182.635 5.85786C178.884 2.10714 173.797 0 168.492 0H81.5076C76.2032 0 71.1162 2.10713 67.3654 5.85786L5.85786 67.3654C2.10714 71.1162 0 76.2032 0 81.5076V125V176.777V230C0 241.046 8.9543 250 20 250H73.2233H176.777H230C241.046 250 250 241.046 250 230V176.777V125V81.5076C250 76.2032 247.893 71.1162 244.142 67.3654L182.635 5.85786Z"/>
+            
+          </svg>
+        </div>
+        
+      </div>
+    </a>
+  </li>
+  
+  <li>
+    <a href="./customize?glyph=p">
+      <div class="glyph-box" style="position: relative; padding-bottom: 100%;" data-glyph="p">
+        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; display: flex; justify-content: center; align-items: center;">
+          <span class="glyph" style="font-family: PictogramMono; font-size: 12.0vw; font-variation-settings: 'wght' 450, 'RTIO' 550, 'RDUS' 550; color: var(--color-glyph); transition: color var(--intro-animation-duration) var(--intro-animation-timing-function), font-variation-settings 400ms ease; will-change: color, font-variation-settings;">p</span>
+        </div>
+        
+        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center;">
+          <svg width="100%" viewBox="0 0 250 250">
+            
+            <rect fill="var(--color-frame)" style="transition: fill var(--intro-animation-duration) var(--intro-animation-timing-function); will-change: fill;" width="250" height="250" rx="125"/>
+            
+          </svg>
+        </div>
+        
+      </div>
+    </a>
+  </li>
+  
+  <li>
+    <a href="./customize?glyph=q">
+      <div class="glyph-box" style="position: relative; padding-bottom: 100%;" data-glyph="q">
+        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; display: flex; justify-content: center; align-items: center;">
+          <span class="glyph" style="font-family: PictogramMono; font-size: 12.0vw; font-variation-settings: 'wght' 450, 'RTIO' 550, 'RDUS' 550; color: var(--color-glyph); transition: color var(--intro-animation-duration) var(--intro-animation-timing-function), font-variation-settings 400ms ease; will-change: color, font-variation-settings;">q</span>
+        </div>
+        
+        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center;">
+          <svg width="100%" viewBox="0 0 250 250">
+            
+            <rect fill="var(--color-frame)" style="transition: fill var(--intro-animation-duration) var(--intro-animation-timing-function); will-change: fill;" width="250" height="250" rx="125"/>
+            
+          </svg>
+        </div>
+        
+      </div>
+    </a>
+  </li>
+  
+  <li>
+    <a href="./customize?glyph=r">
+      <div class="glyph-box" style="position: relative; padding-bottom: 100%;" data-glyph="r">
+        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; display: flex; justify-content: center; align-items: center;">
+          <span class="glyph" style="font-family: PictogramMono; font-size: 12.0vw; font-variation-settings: 'wght' 450, 'RTIO' 550, 'RDUS' 550; color: var(--color-glyph); transition: color var(--intro-animation-duration) var(--intro-animation-timing-function), font-variation-settings 400ms ease; will-change: color, font-variation-settings;">r</span>
+        </div>
+        
+        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center;">
+          <svg width="100%" viewBox="0 0 250 250">
+            
+            <path fill="var(--color-frame)" style="transition: fill var(--intro-animation-duration) var(--intro-animation-timing-function); will-change: fill;" d="M182.635 5.85786C178.884 2.10714 173.797 0 168.492 0H81.5076C76.2032 0 71.1162 2.10713 67.3654 5.85786L5.85786 67.3654C2.10714 71.1162 0 76.2032 0 81.5076V125V176.777V230C0 241.046 8.9543 250 20 250H73.2233H176.777H230C241.046 250 250 241.046 250 230V176.777V125V81.5076C250 76.2032 247.893 71.1162 244.142 67.3654L182.635 5.85786Z"/>
+            
+          </svg>
+        </div>
+        
+      </div>
+    </a>
+  </li>
+  
+  <li>
+    <a href="./customize?glyph=s">
+      <div class="glyph-box" style="position: relative; padding-bottom: 100%;" data-glyph="s">
+        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; display: flex; justify-content: center; align-items: center;">
+          <span class="glyph" style="font-family: PictogramMono; font-size: 12.0vw; font-variation-settings: 'wght' 450, 'RTIO' 550, 'RDUS' 550; color: var(--color-glyph); transition: color var(--intro-animation-duration) var(--intro-animation-timing-function), font-variation-settings 400ms ease; will-change: color, font-variation-settings;">s</span>
+        </div>
+        
+        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center;">
+          <svg width="100%" viewBox="0 0 250 250">
+            
+            <path fill="var(--color-frame)" style="transition: fill var(--intro-animation-duration) var(--intro-animation-timing-function); will-change: fill;" d="M67.3654 5.85786C71.1162 2.10713 76.2032 3.10766e-08 81.5076 8.63934e-08L168.492 9.93525e-07C173.797 1.04884e-06 178.884 2.10714 182.635 5.85787L244.142 67.3654C247.893 71.1162 250 76.2032 250 81.5076V168.492C250 173.797 247.893 178.884 244.142 182.635L182.635 244.142C178.884 247.893 173.797 250 168.492 250H81.5076C76.2032 250 71.1162 247.893 67.3654 244.142L5.85786 182.635C2.10713 178.884 3.10767e-08 173.797 8.63934e-08 168.492L9.93525e-07 81.5076C1.04884e-06 76.2032 2.10714 71.1162 5.85786 67.3654L67.3654 5.85786Z"/>
+            
+          </svg>
+        </div>
+        
+      </div>
+    </a>
+  </li>
+  
+  <li>
+    <a href="./customize?glyph=t">
+      <div class="glyph-box" style="position: relative; padding-bottom: 100%;" data-glyph="t">
+        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; display: flex; justify-content: center; align-items: center;">
+          <span class="glyph" style="font-family: PictogramMono; font-size: 12.0vw; font-variation-settings: 'wght' 450, 'RTIO' 550, 'RDUS' 550; color: var(--color-glyph); transition: color var(--intro-animation-duration) var(--intro-animation-timing-function), font-variation-settings 400ms ease; will-change: color, font-variation-settings;">t</span>
+        </div>
+        
+        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center;">
+          <svg width="100%" viewBox="0 0 250 250">
+            
+            <rect fill="var(--color-frame)" style="transition: fill var(--intro-animation-duration) var(--intro-animation-timing-function); will-change: fill;" width="250" height="250" rx="20"/>
+            
+          </svg>
+        </div>
+        
+      </div>
+    </a>
+  </li>
+  
+  <li>
+    <a href="./customize?glyph=u">
+      <div class="glyph-box" style="position: relative; padding-bottom: 100%;" data-glyph="u">
+        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; display: flex; justify-content: center; align-items: center;">
+          <span class="glyph" style="font-family: PictogramMono; font-size: 12.0vw; font-variation-settings: 'wght' 450, 'RTIO' 550, 'RDUS' 550; color: var(--color-glyph); transition: color var(--intro-animation-duration) var(--intro-animation-timing-function), font-variation-settings 400ms ease; will-change: color, font-variation-settings;">u</span>
+        </div>
+        
+        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center;">
+          <svg width="100%" viewBox="0 0 250 250">
+            
+            <rect fill="var(--color-frame)" style="transition: fill var(--intro-animation-duration) var(--intro-animation-timing-function); will-change: fill;" width="250" height="250" rx="20"/>
+            
+          </svg>
+        </div>
+        
+      </div>
+    </a>
+  </li>
+  
+  <li>
+    <a href="./customize?glyph=v">
+      <div class="glyph-box" style="position: relative; padding-bottom: 100%;" data-glyph="v">
+        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; display: flex; justify-content: center; align-items: center;">
+          <span class="glyph" style="font-family: PictogramMono; font-size: 12.0vw; font-variation-settings: 'wght' 450, 'RTIO' 550, 'RDUS' 550; color: var(--color-glyph); transition: color var(--intro-animation-duration) var(--intro-animation-timing-function), font-variation-settings 400ms ease; will-change: color, font-variation-settings;">v</span>
+        </div>
+        
+        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center;">
+          <svg width="100%" viewBox="0 0 250 250">
+            
+            <path fill="var(--color-frame)" style="transition: fill var(--intro-animation-duration) var(--intro-animation-timing-function); will-change: fill;" d="M67.3654 5.85786C71.1162 2.10713 76.2032 3.10766e-08 81.5076 8.63934e-08L168.492 9.93525e-07C173.797 1.04884e-06 178.884 2.10714 182.635 5.85787L244.142 67.3654C247.893 71.1162 250 76.2032 250 81.5076V168.492C250 173.797 247.893 178.884 244.142 182.635L182.635 244.142C178.884 247.893 173.797 250 168.492 250H81.5076C76.2032 250 71.1162 247.893 67.3654 244.142L5.85786 182.635C2.10713 178.884 3.10767e-08 173.797 8.63934e-08 168.492L9.93525e-07 81.5076C1.04884e-06 76.2032 2.10714 71.1162 5.85786 67.3654L67.3654 5.85786Z"/>
+            
+          </svg>
+        </div>
+        
+      </div>
+    </a>
+  </li>
+  
+  <li>
+    <a href="./customize?glyph=w">
+      <div class="glyph-box" style="position: relative; padding-bottom: 100%;" data-glyph="w">
+        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; display: flex; justify-content: center; align-items: center;">
+          <span class="glyph" style="font-family: PictogramMono; font-size: 12.0vw; font-variation-settings: 'wght' 450, 'RTIO' 550, 'RDUS' 550; color: var(--color-glyph); transition: color var(--intro-animation-duration) var(--intro-animation-timing-function), font-variation-settings 400ms ease; will-change: color, font-variation-settings;">w</span>
+        </div>
+        
+        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center;">
+          <svg width="100%" viewBox="0 0 250 250">
+            
+            <rect fill="var(--color-frame)" style="transition: fill var(--intro-animation-duration) var(--intro-animation-timing-function); will-change: fill;" width="250" height="250" rx="125"/>
+            
+          </svg>
+        </div>
+        
+      </div>
+    </a>
+  </li>
+  
+  <li>
+    <a href="./customize?glyph=x">
+      <div class="glyph-box" style="position: relative; padding-bottom: 100%;" data-glyph="x">
+        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; display: flex; justify-content: center; align-items: center;">
+          <span class="glyph" style="font-family: PictogramMono; font-size: 12.0vw; font-variation-settings: 'wght' 450, 'RTIO' 550, 'RDUS' 550; color: var(--color-glyph); transition: color var(--intro-animation-duration) var(--intro-animation-timing-function), font-variation-settings 400ms ease; will-change: color, font-variation-settings;">x</span>
+        </div>
+        
+        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center;">
+          <svg width="100%" viewBox="0 0 250 250">
+            
+            <path fill="var(--color-frame)" style="transition: fill var(--intro-animation-duration) var(--intro-animation-timing-function); will-change: fill;" d="M182.635 5.85786C178.884 2.10714 173.797 0 168.492 0H81.5076C76.2032 0 71.1162 2.10713 67.3654 5.85786L5.85786 67.3654C2.10714 71.1162 0 76.2032 0 81.5076V125V176.777V230C0 241.046 8.9543 250 20 250H73.2233H176.777H230C241.046 250 250 241.046 250 230V176.777V125V81.5076C250 76.2032 247.893 71.1162 244.142 67.3654L182.635 5.85786Z"/>
+            
+          </svg>
+        </div>
+        
+      </div>
+    </a>
+  </li>
+  
+  <li>
+    <a href="./customize?glyph=y">
+      <div class="glyph-box" style="position: relative; padding-bottom: 100%;" data-glyph="y">
+        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; display: flex; justify-content: center; align-items: center;">
+          <span class="glyph" style="font-family: PictogramMono; font-size: 12.0vw; font-variation-settings: 'wght' 450, 'RTIO' 550, 'RDUS' 550; color: var(--color-glyph); transition: color var(--intro-animation-duration) var(--intro-animation-timing-function), font-variation-settings 400ms ease; will-change: color, font-variation-settings;">y</span>
+        </div>
+        
+        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center;">
+          <svg width="100%" viewBox="0 0 250 250">
+            
+            <path fill="var(--color-frame)" style="transition: fill var(--intro-animation-duration) var(--intro-animation-timing-function); will-change: fill;" d="M182.635 5.85786C178.884 2.10714 173.797 0 168.492 0H81.5076C76.2032 0 71.1162 2.10713 67.3654 5.85786L5.85786 67.3654C2.10714 71.1162 0 76.2032 0 81.5076V125V176.777V230C0 241.046 8.9543 250 20 250H73.2233H176.777H230C241.046 250 250 241.046 250 230V176.777V125V81.5076C250 76.2032 247.893 71.1162 244.142 67.3654L182.635 5.85786Z"/>
+            
+          </svg>
+        </div>
+        
+      </div>
+    </a>
+  </li>
+  
+  <li>
+    <a href="./customize?glyph=z">
+      <div class="glyph-box" style="position: relative; padding-bottom: 100%;" data-glyph="z">
+        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; display: flex; justify-content: center; align-items: center;">
+          <span class="glyph" style="font-family: PictogramMono; font-size: 12.0vw; font-variation-settings: 'wght' 450, 'RTIO' 550, 'RDUS' 550; color: var(--color-glyph); transition: color var(--intro-animation-duration) var(--intro-animation-timing-function), font-variation-settings 400ms ease; will-change: color, font-variation-settings;">z</span>
+        </div>
+        
+        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center;">
+          <svg width="100%" viewBox="0 0 250 250">
+            
+            <rect fill="var(--color-frame)" style="transition: fill var(--intro-animation-duration) var(--intro-animation-timing-function); will-change: fill;" width="250" height="250" rx="125"/>
+            
+          </svg>
+        </div>
+        
+      </div>
+    </a>
+  </li>
+  
+  <li>
+    <a href="./customize?glyph=,">
+      <div class="glyph-box" style="position: relative; padding-bottom: 100%;" data-glyph=",">
+        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; display: flex; justify-content: center; align-items: center;">
+          <span class="glyph" style="font-family: PictogramMono; font-size: 12.0vw; font-variation-settings: 'wght' 450, 'RTIO' 550, 'RDUS' 550; color: var(--color-glyph); transition: color var(--intro-animation-duration) var(--intro-animation-timing-function), font-variation-settings 400ms ease; will-change: color, font-variation-settings;">,</span>
+        </div>
+        
+        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center;">
+          <svg width="100%" viewBox="0 0 250 250">
+            
+            <rect fill="var(--color-frame)" style="transition: fill var(--intro-animation-duration) var(--intro-animation-timing-function); will-change: fill;" width="250" height="250" rx="20"/>
+            
+          </svg>
+        </div>
+        
+      </div>
+    </a>
+  </li>
+  
+  
+</ul>
+    
+  </div>
+</main>
+
+    
+<script>
+  document.getElementById('intro').addEventListener('click', () => {
+    fetch('/state', {
+      method: 'PUT',
+      headers: { 'X-CSRFToken': 'emiGCu3oHsJg806OqPiKEJndATOtkEKBr4SGgTPjJcqODJ1qlTddiigKhzJKurNw', 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        active: true,
+      }),
+    })
+    document.body.classList.add('intro-finished')
+  })
+
+  document.querySelectorAll('.glyph-box').forEach(boxEl => {
+    const linkEl = boxEl.closest('a')
+    linkEl.addEventListener('click', e => {
+      e.preventDefault()
+      fetch('/state', {
+        method: 'PUT',
+        headers: { 'X-CSRFToken': 'zsGVRUzHPBqvyqni7Aw4d61DWZlzgDFAMagVvjlCRl7339iU2ErxRFUaDFgQqqIv', 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          glyph: boxEl.dataset.glyph,
+        }),
+      })
+      .then(response => {
+        if (response.ok) {
+          window.location = linkEl.getAttribute('href')
+        }
+      })
+    })
+  })
+</script>
+
+  </body>
+</html>

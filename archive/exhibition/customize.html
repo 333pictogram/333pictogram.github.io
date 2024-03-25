@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap-reboot.min.css" integrity="sha256-ppZyQtAjuonHV1Z+DwQnDTk4/GUpdegGm1Jz7qYuM5c=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
+    <title>3*3*3</title>
+    <style>
+      @font-face {
+        font-family: "Pictogram";
+        src: url("https://cdn.jsdelivr.net/gh/333pictogram/333pictogram@latest/dist/default/333Pictogram.woff2") format("woff2");
+      }
+      @font-face {
+        font-family: "PictogramMono";
+        src: url("https://cdn.jsdelivr.net/gh/333pictogram/333pictogram@latest/dist/mono/333PictogramMono.woff2") format("woff2");
+      }
+      :root {
+        --intro-animation-duration: 400ms;
+        --intro-animation-timing-function: ease;
+        --glyph-animation-duration: 320ms;
+        --glyph-animation-timing-function: ease-in-out;
+        --color-weight: #f25a39;
+        --color-ratio: #3461ff;
+        --color-radius: #62df85;
+        --color-bg: #fff;
+        --color-shade: #f5f5f5;
+        --color-frame: #f0f0f0;
+        --color-glyph: #1c1c1c;
+      }
+      body.inactive,
+      .inverted,
+      .cta-button:not(:hover) {
+        --color-bg: #1c1c1c;
+        --color-shade: #303030;
+        --color-frame: #363636;
+        --color-glyph: #f5f5f5;
+      }
+      .cta-button {
+        --color-border: var(--color-bg);
+      }
+      .cta-button:hover {
+        --color-border: var(--color-glyph);
+      }
+      .glyph-box.selected {
+        --color-frame: #00dfaa;
+        --color-glyph: #fff;
+      }
+    </style>
+    
+<style>
+  #printButton:hover,
+  #printButton:active {
+
+  }
+  input[type="range"] {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 240px;
+    height: 90px;
+    background-color: transparent;
+  }
+  input[type="range"]::-webkit-slider-container {
+    padding: 10px;
+    background-color: var(--color-slider);
+    border-radius: 45px;
+  }
+  input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 70px;
+    height: 70px;
+    background-color: #fff;
+    border: 3px solid #000;
+    border-radius: 35px;
+    box-shadow: none;
+  }
+</style>
+
+  </head>
+  <body style="font-family: Pretendard, sans-serif; word-break: keep-all; line-height: 1; background-color: var(--color-bg); transition: background-color var(--intro-animation-duration) var(--intro-animation-timing-function); will-change: background-color;">
+    
+<header style="position: fixed; z-index: 1000; top: 0; left: 0; width: 100%; height: 130px; background-color: var(--color-bg);">
+  <div style="height: 100%; padding: 0 30px; display: flex; align-items: center; gap: 20px;">
+    <div>
+      <a href="javascript: goBack();">
+        <img src="/static/icon-back.svg">
+      </a>
+    </div>
+    <div>
+      <span style="font-weight: 400; font-size: 40px; letter-spacing: -0.01em; color: var(--color-glyph);">원하는 모양으로 조절하세요.</span>
+    </div>
+    <div style="margin-left: auto;">
+      <a href="javascript: requestPrint();">
+        <button class="cta-button" style="height: 66px; padding-right: 18px; padding-left: 24px; border: 3px solid var(--color-border); border-radius: 33px; background-color: var(--color-bg);" type="button">
+          <span style="font-weight: 400; font-size: 48px; font-feature-settings: 'case' on; text-transform: uppercase; color: var(--color-glyph);">인쇄/Print→</span>
+        </button>
+      </a>
+    </div>
+  </div>
+</header>
+<main style="padding-top: 130px;">
+  <div style="padding: 0 30px 30px; display: flex; justify-content: space-around; gap: 30px;">
+    <div style="width: calc(100vh - 230px);">
+      <div style="height: 70px; padding-right: 20px; padding-left: 20px; display: flex; justify-content: space-between; font-weight: 500; font-size: 20px; letter-spacing: 0.03em;">
+        
+        <div style="display: flex; align-items: center; gap: 15px;">
+          <span style="font-feature-settings: 'salt' on; text-transform: uppercase; color: var(--color-weight);">Weight</span><span style="font-feature-settings: 'tnum' on;" data-feature="wght">450</span>
+        </div>
+        
+        <div style="display: flex; align-items: center; gap: 15px;">
+          <span style="font-feature-settings: 'salt' on; text-transform: uppercase; color: var(--color-ratio);">Ratio</span><span style="font-feature-settings: 'tnum' on;" data-feature="RTIO">550</span>
+        </div>
+        
+        <div style="display: flex; align-items: center; gap: 15px;">
+          <span style="font-feature-settings: 'salt' on; text-transform: uppercase; color: var(--color-radius);">Radius</span><span style="font-feature-settings: 'tnum' on;" data-feature="RDUS">550</span>
+        </div>
+        
+      </div>
+      <div style="height: calc(100vh - 230px); border-radius: 50px; background-color: var(--color-shade); display: flex; justify-content: center; align-items: center;">
+        <span class="glyph" style="font-family: PictogramMono; font-size: 50vh; font-variation-settings: &#39;wght&#39; 450, &#39;RTIO&#39; 550, &#39;RDUS&#39; 550; color: var(--color-glyph); will-change: font-variation-settings;">a</span>
+      </div>
+    </div>
+    <div style="width: 500px; padding-top: 70px; display: flex; flex-direction: column; justify-content: space-evenly;">
+      <div style="position: relative; height: 450px;">
+        
+        
+        <input style="position: absolute; --color-slider: var(--color-weight); top: 0; left: 50%; margin-top: 92px; margin-left: -120px; transform: rotate(-90deg);" data-feature="wght" type="range" min="100" max="900" value="450">
+        
+        
+        
+        <input style="position: absolute; --color-slider: var(--color-ratio); bottom: 0; right: 0; margin-bottom: 56px; margin-right: 8px; transform: rotate(30deg);" data-feature="RTIO" type="range" min="100" max="900" value="550">
+        
+        
+        
+        <input style="position: absolute; --color-slider: var(--color-radius); bottom: 0; left: 0; margin-bottom: 56px; margin-left: 8px; transform: rotate(150deg);" data-feature="RDUS" type="range" min="100" max="900" value="550">
+        
+        
+        <img src="/static/icon-triangle.svg">
+      </div>
+      <div style="display: flex; justify-content: space-between; padding-top: 25px; padding-bottom: 25px;">
+        <div style="flex-basis: 0; flex-grow: 1; text-align: left;">
+          <a href="javascript: randomizeInputs();" style="color: unset; text-decoration: unset;">
+            <span style="font-weight: 400; font-size: 30px; font-feature-settings: 'case' on; letter-spacing: -0.01em; color: var(--color-glyph);"><span style="vertical-align: -2px; margin-right: 1px;">↺</span> 랜덤 모양</span>
+          </a>
+        </div>
+        <div style="height: 100%; border-right: 2px solid var(--color-glyph);"></div>
+        <div style="flex-basis: 0; flex-grow: 1; text-align: right;">
+          <a href="javascript: initializeInputs();" style="color: unset; text-decoration: unset;">
+            <span style="font-weight: 400; font-size: 30px; font-feature-settings: 'case' on; letter-spacing: -0.01em; color: var(--color-glyph);">초기화하기 <span style="vertical-align: -1px; margin-left: 2px;">↻</span></span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+    
+<script>
+  const goBack = () => {
+    fetch('/state', {
+      method: 'PUT',
+      headers: { 'X-CSRFToken': 'UTq4nStj72WKeTlCu9XsrJ1Uq7Si8wq9y3WDRCEHHiQxzWsNF42j56yAkYdN9io9', 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        glyph: null,
+      }),
+    })
+    .then(() => {
+      window.location = '/tablet?skipIntro'
+    })
+  }
+  const requestPrint = () => {
+    fetch('/state', {
+      method: 'PUT',
+      headers: { 'X-CSRFToken': 'ZWsoGpUYYkbrhJ2SA9T3Kx2l3XH0YLmdD6YXa95myA5eCM93L4YUoUz1XO2vZxkd', 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        printing: true,
+      }),
+    })
+    .then(response => {
+      if (response.ok) {
+        document.body.style.willChange = 'filter'
+        document.body.style.transition = 'filter 4000.0ms ease-in-out 3000.0ms'
+        document.body.style.filter = 'blur(50px)'
+        setTimeout(() => {
+          window.location = '/tablet'
+        }, 7000)
+      }
+    })
+  }
+  const glyphElList = document.querySelectorAll('.glyph')
+  const inputElList = document.querySelectorAll('input[type="range"]')
+  const refreshGlyphs = () => {
+    glyphElList.forEach(glyphEl => {
+      glyphEl.style.fontVariationSettings = Array.from(inputElList).map(inputEl => `'${inputEl.dataset.feature}' ${inputEl.value}`).join(', ')
+    })
+  }
+  const refreshDisplayText = inputEl => {
+    const featureType = inputEl.dataset.feature
+    const featureValue = inputEl.value
+    document.querySelectorAll(`span[data-feature="${featureType}"]`).forEach(displayEl => {
+      displayEl.innerText = featureValue
+    })
+  }
+  const onInputFuncGenerator = changedInputElList => {
+    return () => {
+      fetch('/state', {
+        method: 'PUT',
+        headers: { 'X-CSRFToken': 'O6wvao3Bh3JCMLao0vGSxfYlsEH9lwRgsg24E8eZRjDp7OhzbqLJbCv1mv2EmiPg', 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          features: Object.fromEntries(Array.from(inputElList).map(inputEl => [inputEl.dataset.feature, +inputEl.value])),
+        }),
+      })
+      refreshGlyphs()
+      changedInputElList.forEach(refreshDisplayText)
+    }
+  }
+  inputElList.forEach(inputEl => {
+    inputEl.addEventListener('input', onInputFuncGenerator([inputEl]))
+  })
+  let inputAnimationTimeoutId = null
+  const updateInputs = yieldInputValue => {
+    inputElList.forEach(inputEl => { inputEl.value = yieldInputValue(inputEl) })
+    glyphElList.forEach(glyphEl => { glyphEl.style.transition = `font-variation-settings var(--glyph-animation-duration) var(--glyph-animation-timing-function)` })
+    if (inputAnimationTimeoutId !== null) {
+      clearTimeout(inputAnimationTimeoutId)
+    }
+    const inputAnimationTimeoutDelay = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--glyph-animation-duration'))
+    inputAnimationTimeoutId = setTimeout(() => {
+      glyphElList.forEach(glyphEl => { glyphEl.style.transition = null })
+      inputAnimationTimeoutId = null
+    }, inputAnimationTimeoutDelay)
+    onInputFuncGenerator(inputElList)()
+  }
+  const randomizeInputs = () => {
+    updateInputs(inputEl => {
+      const minValue = +inputEl.min
+      const maxValue = +inputEl.max
+      return Math.floor(Math.random() * (maxValue - minValue + 1) + minValue)
+    })
+  }
+  const initializeInputs = () => {
+    updateInputs(() => 500)
+  }
+</script>
+
+  </body>
+</html>
