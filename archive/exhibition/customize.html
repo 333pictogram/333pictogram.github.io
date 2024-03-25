@@ -158,16 +158,10 @@
     
 <script>
   const goBack = () => {
-    window.location = '../?skipIntro'
+    window.location = './?skipIntro'
   }
   const requestPrint = () => {
-    alert('전시장에서만 이용이 가능합니다.')
-    document.body.style.willChange = 'filter'
-    document.body.style.transition = 'filter 4000.0ms ease-in-out 3000.0ms'
-    document.body.style.filter = 'blur(50px)'
-    setTimeout(() => {
-      window.location = '../'
-    }, 7000)
+    alert('전시장에서만 사용할 수 있는 기능입니다.')
   }
   const glyphElList = document.querySelectorAll('.glyph')
   const inputElList = document.querySelectorAll('input[type="range"]')
